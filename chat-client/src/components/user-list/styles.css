@@ -1,0 +1,8 @@
+.user-list-card{
+    height: calc(100% - 64px);
+}
+
+.user-list-icon {
+    height: 60px !important;
+    width: 60px !important;
+}

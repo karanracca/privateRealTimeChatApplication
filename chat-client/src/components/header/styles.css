@@ -1,0 +1,13 @@
+.header-bar{
+    margin-bottom: 2%
+}
+
+.user-icon-box {
+    position: absolute;
+    right: 5%
+}
+
+.user-icon {
+    height: 2em !important;
+    width: 2em !important;
+}

@@ -1,0 +1,12 @@
+.chat-input{
+    width: 80%;
+    border-radius: 2rem;
+    min-height: 3rem;
+    padding: 1% 3%;
+}
+
+.send-icon{
+    height: 2.5rem !important;
+    width: 2.5rem !important;
+    margin: 0 2%;
+}
