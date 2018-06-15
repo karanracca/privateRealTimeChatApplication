@@ -1,21 +1,7 @@
-const envKey = key => {
-
-    const env = process.env.NODE_ENV || 'development';
-
-    const configuration = {
-        development: {
-            host: 'localhost',
-            port: 8000
-        }
-    };
-
-    return configuration[env][key];
-};
-
 const manifest = {
     server: {
-        host: envKey('host'),
-        port: envKey('port'),
+        host: 'localhost',
+        port: 8000,
         routes: {
             cors: true
         },

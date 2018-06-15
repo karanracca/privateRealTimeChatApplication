@@ -13,8 +13,5 @@ module.exports = {
         mongoose.connection.once('open', function() {
             signale.complete('Connected to MongoDB');
         });
-
-        //Load Mongoose models
-        //require('../app/user/user-model');
     }
 };

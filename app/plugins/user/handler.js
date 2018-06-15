@@ -16,7 +16,7 @@ module.exports.login = async (request, h) => {
             'fullname nickname email',
             function (err, user) {
                 if (err || !user) {
-                    console.log(err);
+                    signale.error(err);
                     res({ success: false, payload: {user, token: createToken(user)} , message: 'User Not Found'})
                 } else {
                     res({ success: true, payload: user , message: 'Login Success'})

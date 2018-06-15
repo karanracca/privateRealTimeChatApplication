@@ -1,7 +1,5 @@
 'use strict';
 const signale = require('signale');
-const mongoose = require('mongoose');
-//const {GET_ONLINE_USERS, CURRENT_USERS_ONLINE} = require('../../../config/chat-keys');
 const handler = require('./handler')
 
 module.exports = {
@@ -12,6 +10,12 @@ module.exports = {
         
         //Method called on new connection
         io.on('connection', function (socket) {
+            
+            for (let key in io.sockets.sockets) {
+                
+                console.log(key);
+            }
+
             signale.info(`User ${JSON.parse(socket.handshake.query.user).fullname} Connected!`);
             
             /**
@@ -38,7 +42,11 @@ module.exports = {
                     signale.error('Cannot find receiver');
                 }   
             });
+
+            socket.on('disconnect', (reason) => {
+                socket.disconnect();
+                signale.info('Disconnected', reason);
+            });
         });
-    
     }
 };

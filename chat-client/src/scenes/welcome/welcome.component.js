@@ -11,6 +11,11 @@ import UserList from '../../components/user-list/user-list.component';
 import MenuBar from '../../components/header/header.component';
 import ChatWindow from '../../components/chat-window/chatWindow.component'
 import _ from 'lodash';
+import { Manager } from 'react-popper';
+
+function checkIfUserPresent(user, userList) {
+    return userList.find(u => u._id === user._id);
+}
 
 class Welcome extends Component {
 
@@ -20,7 +25,8 @@ class Welcome extends Component {
         const socket = io('http://localhost:8000', {
             query: {
                 user: localStorage.getItem('user')
-            }
+            },
+            reconnection: true
         });
 
         this.state = {
@@ -49,15 +55,22 @@ class Welcome extends Component {
 
         this.state.socket.on('USER_LIST_UPDATE', (user) => {
             if (!_.isEqual(user, this.state.currentUser)) {
-                this.setState({
-                    users: [...this.state.users, new User(user)]
-                })
+                //To check for similiar users on browser refresh
+                if(!checkIfUserPresent(user, this.state.users)) {
+                    this.setState({
+                        users: [...this.state.users, new User(user)]
+                    })
+                }
             }
         })
 
         this.state.socket.on('PRIVATE_MESSAGE', ((msg, from) => {
             this.onNewMessage(msg, from);
         }).bind(this));
+    }
+
+    componentWillUnmount() {
+        this.state.socket.emit('disconnect');
     }
 
     userSelected = (selectedUserIndex) => this.setState({ selectedUserIndex });
