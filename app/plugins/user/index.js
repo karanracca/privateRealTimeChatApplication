@@ -19,14 +19,14 @@ module.exports = {
             },
             handler: handler.register
         },
-        {
-            method: 'GET',
-            path: '/get_users',
-            options: {
-                auth: 'jwt'
-            },
-            handler: handler.getAllUsers
-        }
+        // {
+        //     method: 'GET',
+        //     path: '/get_users',
+        //     options: {
+        //         auth: 'jwt'
+        //     },
+        //     handler: handler.getAllUsers
+        // }
     ]);
     }
 };

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './login.css';
-import {login} from '../../services/user.service';
+import { login } from '../../services/user.service';
 import { Link } from 'react-router-dom'
 
 
@@ -34,63 +34,63 @@ class Login extends Component {
 
   login = () => {
     if (this.state.username === '') {
-      this.setState({usernameError:true})
+      this.setState({ usernameError: true })
       return;
     }
 
     if (this.state.password === '') {
-      this.setState({passwordError:true})
+      this.setState({ passwordError: true })
       return;
     }
 
-    login(this.state).then( result => {
+    login(this.state).then(result => {
       this.props.history.push('/welcome')
     }).catch(err => {
-      this.setState({snackbar:true, snackMessage: err.message})
+      this.setState({ snackbar: true, snackMessage: err.message })
     })
   }
-  
+
   render() {
 
-    const {username, password, usernameError, passwordError, snackbar, snackMessage} = this.state;
+    const { username, password, usernameError, passwordError, snackbar, snackMessage } = this.state;
 
     return (<div>
       <Snackbar
-          open={this.state.snackbar}
-          autoHideDuration={3000}
-          message={<span>{snackMessage}</span>}
+        open={this.state.snackbar}
+        autoHideDuration={3000}
+        message={<span>{snackMessage}</span>}
       />
-      <Card className='main-container'> 
+      <Card className='main-container'>
         <div className='main-heading'>Login</div>
         <CardContent>
-        <form noValidate autoComplete="off">
-          <TextField
-            fullWidth
-            required
-            error={usernameError}
-            id="username"
-            label="Username"
-            value={username}
-            onChange={this.handleChange('username')}
-          />
+          <form noValidate autoComplete="off">
+            <TextField
+              fullWidth
+              required
+              error={usernameError}
+              id="username"
+              label="Username"
+              value={username}
+              onChange={this.handleChange('username')}
+            />
 
-          <TextField
-            fullWidth
-            required
-            error={passwordError}
-            id="password"
-            label="Passsword"
-            value={password}
-            onChange={this.handleChange('password')}
-          />
-        </form>
+            <TextField
+              fullWidth
+              required
+              error={passwordError}
+              id="password"
+              label="Passsword"
+              value={password}
+              onChange={this.handleChange('password')}
+            />
+          </form>
         </CardContent>
         <div className='btn-row'>
           <Button variant="raised" color="primary" size="small" onClick={this.login}>Login</Button>
         </div>
-        
+
         <div>
-            New user? <Link to="/register">Sign Up here</Link>
+          New user? <Link to="/register">Sign Up here</Link>
         </div>
       </Card>
     </div>);

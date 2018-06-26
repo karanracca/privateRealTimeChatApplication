@@ -9,6 +9,7 @@
   "author": "Karan Racca",
   "license": "ISC",
   "dependencies": {
+    "boom": "^7.2.0",
     "glue": "^5.0.0",
     "hapi": "^17.4.0",
     "hapi-auth-jwt2": "^8.1.0",
