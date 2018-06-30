@@ -3,7 +3,8 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 import Login from './scenes/login/login.component';
 import RegisterUser from './scenes/register-user/register.component'
-import Welcome from './scenes/welcome/welcome.component'
+import Welcome from './scenes/welcome/welcome.component';
+import { SnackbarProvider, SnackbarConsumer } from './util/NotificationContext';
 
 class App extends Component {
 
@@ -11,10 +12,17 @@ class App extends Component {
     return (
       <BrowserRouter>
         <Switch>
-          <Route exact path='/' component={Login} />
-          <Route path='/login' component={Login} />
-          <Route path='/register' component={RegisterUser} />
-          <Route path='/welcome' component={Welcome} />
+          <SnackbarProvider>
+            <SnackbarConsumer>
+              {(notify) => (<div>
+                <Route exact path='/' render={(props) => <Login {...props} notify={notify} />} />
+                <Route path='/login' render={(props) => <Login {...props} notify={notify} />} />
+                <Route path='/register' component={RegisterUser} />
+                <Route path='/welcome' component={Welcome} />
+              </div>
+              )}
+            </SnackbarConsumer>
+          </SnackbarProvider>
         </Switch>
       </BrowserRouter>
     );

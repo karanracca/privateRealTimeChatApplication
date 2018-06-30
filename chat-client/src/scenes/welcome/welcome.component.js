@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client';
 import PropTypes from 'prop-types';
-import Socket from '../../services/socket.service';
 import User from '../../Models/user.model';
 import Message from '../../Models/message.model';
 import './styles.css';
@@ -9,9 +8,7 @@ import './styles.css';
 import Chat from '../chat/chat.component';
 import UserList from '../../components/user-list/user-list.component';
 import MenuBar from '../../components/header/header.component';
-import ChatWindow from '../../components/chat-window/chatWindow.component'
 import _ from 'lodash';
-import { Manager } from 'react-popper';
 
 function checkIfUserPresent(user, userList) {
     return userList.find(u => u._id === user._id);
@@ -56,7 +53,7 @@ class Welcome extends Component {
         this.state.socket.on('USER_LIST_UPDATE', (user) => {
             if (!_.isEqual(user, this.state.currentUser)) {
                 //To check for similiar users on browser refresh
-                if(!checkIfUserPresent(user, this.state.users)) {
+                if (!checkIfUserPresent(user, this.state.users)) {
                     this.setState({
                         users: [...this.state.users, new User(user)]
                     })

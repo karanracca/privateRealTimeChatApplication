@@ -4,26 +4,22 @@ import './login.css';
 import { login } from '../../services/user.service';
 import { Link } from 'react-router-dom'
 
-
 import TextField from '@material-ui/core/TextField';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import Snackbar from '@material-ui/core/Snackbar';
 
 
 class Login extends Component {
 
-  state = {
-    username: '',
-    password: '',
-    usernameError: false,
-    passwordError: false,
-    snackbar: false,
-    snackMessage: ''
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: '',
+      password: '',
+      usernameError: false,
+      passwordError: false,
+    }
   }
 
   handleChange = name => event => {
@@ -44,22 +40,18 @@ class Login extends Component {
     }
 
     login(this.state).then(result => {
-      this.props.history.push('/welcome')
+      this.props.notify.openSnackbar("Welcome {Username here}");
+      this.props.history.push('/welcome');
     }).catch(err => {
-      this.setState({ snackbar: true, snackMessage: err.message })
+      this.props.notify.openSnackbar(err.message);
     })
   }
 
   render() {
 
-    const { username, password, usernameError, passwordError, snackbar, snackMessage } = this.state;
+    const { username, password, usernameError, passwordError} = this.state;
 
     return (<div>
-      <Snackbar
-        open={this.state.snackbar}
-        autoHideDuration={3000}
-        message={<span>{snackMessage}</span>}
-      />
       <Card className='main-container'>
         <div className='main-heading'>Login</div>
         <CardContent>
@@ -93,7 +85,8 @@ class Login extends Component {
           New user? <Link to="/register">Sign Up here</Link>
         </div>
       </Card>
-    </div>);
+    </div>
+   );
   }
 }
 
