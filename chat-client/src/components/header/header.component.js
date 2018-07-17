@@ -3,11 +3,11 @@ import Typography from '@material-ui/core/Typography';
 import Toolbar from '@material-ui/core/Toolbar';
 import AppBar from '@material-ui/core/AppBar';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import './styles.css';
+import PropTypes from 'prop-types';
 
 export default class MenuBar extends React.Component {
 
@@ -15,21 +15,17 @@ export default class MenuBar extends React.Component {
         super(props);
         this.state = {
             anchorEl: null,
-            currentUser: props.currentUser
         };
     } 
     
-    handleMenu = event => {
-        this.setState({ anchorEl: event.currentTarget });
-    };
+    handleMenu = event => this.setState({ anchorEl: event.currentTarget });
 
-    handleClose = () => {
-        this.setState({ anchorEl: null });
-    };
+    handleClose = () => this.setState({ anchorEl: null });
 
     render() {
 
-        const { auth, anchorEl, currentUser } = this.state;
+        const { anchorEl } = this.state;
+        const { currentUser } = this.props;
         const open = Boolean(anchorEl);
         
         return (<AppBar position="static">
@@ -67,4 +63,8 @@ export default class MenuBar extends React.Component {
             </Toolbar>
         </AppBar>)
     }
+}
+
+MenuBar.PropTypes = {
+    currentUser: PropTypes.object.isRequired
 }

@@ -8,6 +8,7 @@ export default class User {
         this.email = user.email;
         this.avatar = user.avatar || default_icon;
         this.messageList = [];
+        this.hasNewMessages = false;
     }
 
     getMessageList() {

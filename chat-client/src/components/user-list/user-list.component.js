@@ -12,29 +12,13 @@ import FiberManualRecord from '@material-ui/icons/FiberManualRecord';
 
 class UserList extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            users: props.users
-        };
-    }
-
-    static getDerivedStateFromProps(nextProps, prevState) {
-        if (nextProps.users !== prevState.users) {
-            return {users: nextProps.users};
-        }
-        return null;
-    }
-
     style = {
-        primary: {
-            fontSize: '2rem'
-        }
+        primary: {fontSize: '2rem'}
     }
 
     render() {
 
-        const { users } = this.state;
+        const { users } = this.props;
         if (users.length > 0) {
             return (
                 <Card className="user-list-card">
@@ -46,7 +30,7 @@ class UserList extends Component {
                                     <ListItemText
                                         primary={<span>{user.fullname}</span>}
                                         secondary={user.nickname} />
-                                    { user.showBadge? <FiberManualRecord /> : null}
+                                    { user.hasNewMessages? <FiberManualRecord /> : null}
                                 </ListItem>
                                 ) 
                             }

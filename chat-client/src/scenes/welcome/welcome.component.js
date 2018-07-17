@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client';
-import PropTypes from 'prop-types';
 import User from '../../Models/user.model';
 import Message from '../../Models/message.model';
 import './styles.css';
@@ -37,8 +36,11 @@ class Welcome extends Component {
     onNewMessage(msg, from) {
         let usersClone = JSON.parse(JSON.stringify(this.state.users));
         let targetUser = usersClone.find(user => user._id === from._id);
-        targetUser.messageList.push(new Message(msg, from, new Date()));
-        targetUser.showBadge = true;
+        targetUser.messageList.push(new Message(msg, from, new Date(), false));
+        if (this.state.selectedUserIndex === null || targetUser._id !== usersClone[this.state.selectedUserIndex]._id) {
+            targetUser.hasNewMessages = true;
+            this.props.notify.openSnackbar(`New message from ${from.nickname}`);
+        }
         this.setState({ users: usersClone });
     }
 
@@ -70,7 +72,11 @@ class Welcome extends Component {
         this.state.socket.emit('disconnect');
     }
 
-    userSelected = (selectedUserIndex) => this.setState({ selectedUserIndex });
+    userSelected = (selectedUserIndex) => {
+        let usersClone = JSON.parse(JSON.stringify(this.state.users));
+        usersClone[selectedUserIndex].hasNewMessages = false;
+        this.setState({users: usersClone, selectedUserIndex });
+    }
 
     sendMessage = (msg) => {
         let usersClone = JSON.parse(JSON.stringify(this.state.users));

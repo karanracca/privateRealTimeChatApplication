@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import './login.css';
 import { login } from '../../services/user.service';
 import { Link } from 'react-router-dom'
@@ -8,7 +7,6 @@ import TextField from '@material-ui/core/TextField';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
-
 
 class Login extends Component {
 
@@ -40,7 +38,7 @@ class Login extends Component {
     }
 
     login(this.state).then(result => {
-      this.props.notify.openSnackbar("Welcome {Username here}");
+      this.props.notify.openSnackbar(`Welcome ${result.nickname}`);
       this.props.history.push('/welcome');
     }).catch(err => {
       this.props.notify.openSnackbar(err.message);
@@ -65,7 +63,6 @@ class Login extends Component {
               value={username}
               onChange={this.handleChange('username')}
             />
-
             <TextField
               fullWidth
               required

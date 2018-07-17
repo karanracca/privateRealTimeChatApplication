@@ -35,6 +35,7 @@ export class SnackbarProvider extends Component {
             <Snackbar
                 open={this.state.show}
                 autoHideDuration={3000}
+                onClose={this.closeSnackbar}
                 message={this.state.message}
             />
 

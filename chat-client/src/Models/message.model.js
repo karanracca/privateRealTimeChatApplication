@@ -1,8 +1,9 @@
 export default class Message {
-    constructor (content, from, at) {
+    constructor (content, from, at, read) {
         this.content = content;
         this.from = from;
         this.timestamp = at;
+        this.read = read
     }
 
     getContent() {

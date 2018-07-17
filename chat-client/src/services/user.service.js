@@ -8,7 +8,7 @@ export function login(state) {
   }
 
   return axios.post(`${constants.BASE_URL}/login`, credentials).then(response => {
-    console.log('Response', response.data.payload);
+    //console.log('Response', response.data.payload);
     localStorage.setItem('user', JSON.stringify(response.data.payload));
     return response.data.payload;
   }).catch(err => {
